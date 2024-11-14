@@ -1,0 +1,235 @@
+///////////////////////////
+//   Rebel Information   //
+///////////////////////////
+
+["name", "Islamic State"] call _fnc_saveToTemplate;
+
+["flag", "flag_FIA_f"] call _fnc_saveToTemplate; //placeholder
+["flagTexture", "\po_main\data\ui\markers\Flag_isis_CO.paa"] call _fnc_saveToTemplate; //placeholder 
+["flagMarkerType", ""] call _fnc_saveToTemplate; // Not sure if this is right
+
+["vehiclesBasic", ["UK3CB_MEE_I_TT650"]] call _fnc_saveToTemplate;
+["vehiclesLightUnarmed", ["UK3CB_MEE_I_Hilux_Open", "UK3CB_MEE_I_Hilux_Open", "isc_IS_offroad_flag_i"]] call _fnc_saveToTemplate;
+["vehiclesLightArmed", ["isc_IS_offroad_M2_flag_i", "isc_is_UAZ_dshkm_i", "UK3CB_MEE_I_Pickup_M2", "UK3CB_MEE_I_Hilux_M2", "UK3CB_MEE_I_Hilux_Dshkm"]] call _fnc_saveToTemplate;
+["vehiclesTruck", ["UK3CB_MEE_I_Van_Transport", "UK3CB_MEE_I_V3S_Open", "isc_is_ural_open_flag_i", "isc_is_kamaz_flag_i"]] call _fnc_saveToTemplate;
+["vehiclesAT", ["UK3CB_MEE_I_Hilux_Spg9", "UK3CB_MEE_I_Hilux_Metis", ""]] call _fnc_saveToTemplate;
+["vehiclesAA", ["isc_is_Ural_zu23_i", "isc_is_zsu23_i"]] call _fnc_saveToTemplate;
+["vehiclesBoat", ["I_G_Boat_Transport_01_F"]] call _fnc_saveToTemplate;
+
+["vehiclesPlane", [""]] call _fnc_saveToTemplate;
+["vehiclesCivPlane", [""]] call _fnc_saveToTemplate;
+["vehiclesMedical", [""]] call _fnc_saveToTemplate;
+
+["vehiclesCivCar", ["UK3CB_MEE_I_Hilux_Open"]] call _fnc_saveToTemplate;
+["vehiclesCivTruck", ["UK3CB_MEE_I_Van_Transport"]] call _fnc_saveToTemplate;
+["vehiclesCivHeli", [""]] call _fnc_saveToTemplate;
+["vehiclesCivBoat", [""]] call _fnc_saveToTemplate;
+
+["staticMGs", ["isc_is_dshkm_i"]] call _fnc_saveToTemplate;
+["staticAT", ["isc_is_spg9_i"]] call _fnc_saveToTemplate;
+["staticAA", ["isc_is_zu23_i"]] call _fnc_saveToTemplate;
+
+["staticMortars", ["UK3CB_KDF_I_2b14_82mm"]] call _fnc_saveToTemplate;
+["staticMortarMagHE", ""] call _fnc_saveToTemplate;
+["staticMortarMagSmoke", ""] call _fnc_saveToTemplate;
+["staticMortarMagFlare", ""] call _fnc_saveToTemplate;
+
+["mineAT", "CUP_MineE_M"] call _fnc_saveToTemplate;
+["mineAPERS", "APERSMine_Range_Mag"] call _fnc_saveToTemplate;
+
+["breachingExplosivesAPC", [["DemoCharge_Remote_Mag", 1]]] call _fnc_saveToTemplate;
+["breachingExplosivesTank", [["SatchelCharge_Remote_Mag", 1], ["DemoCharge_Remote_Mag", 2]]] call _fnc_saveToTemplate; //this line determines explosives needed for breaching Tanks -- Example: [["SatchelCharge_Remote_Mag", 1], ["DemoCharge_Remote_Mag", 2]]] -- Array, can use Multiple
+
+#include "CUP_Reb_Vehicle_Attributes.sqf"
+
+//////////////////////////////////////
+//       Antistasi Plus Stuff       //
+//////////////////////////////////////
+
+["blackMarketStock", [
+    ["isc_is_Kornet_i", 3000, "STATICAT", {tierWar > 3}],
+    ["isc_is_ags30_i", 3000, "STATICMG", {tierWar > 3}],
+
+    ["UK3CB_MEE_I_BRDM2_UM", 2050, "CAR", {true}],
+    ["UK3CB_MEE_I_BRDM2_HQ", 2500, "CAR", {true}],
+
+    ["UK3CB_MEE_I_BTR60", 6000, "APC", {true}],
+    ["isc_is_m113d_flag_i", 7000, "APC", {tierWar > 3 && {{sidesX getVariable [_x,sideUnknown] isEqualTo teamPlayer} count (milbases + airportsX) > 0}}],
+    ["isc_is_BMP2_flag_i", 9000, "APC", {tierWar > 3 && {{sidesX getVariable [_x,sideUnknown] isEqualTo teamPlayer} count (milbases + airportsX) > 0}}],
+
+    ["isc_is_T72ba_flag_i", 20000, "TANK", {tierWar > 7 && {{sidesX getVariable [_x,sideUnknown] isEqualTo teamPlayer} count (milbases + airportsX) > 0}}],
+    ["isc_is_T72bb_flag_i", 22000, "TANK", {tierWar > 7 && {{sidesX getVariable [_x,sideUnknown] isEqualTo teamPlayer} count (milbases + airportsX) > 0}}],
+  
+    ["isc_is_zsu23_i", 10000, "AA", {{sidesX getVariable [_x,sideUnknown] isEqualTo teamPlayer} count (milbases + airportsX) > 0}],
+
+    ["UK3CB_ADA_I_C400", 10000, "PLANE", {tierWar > 4 && {{sidesX getVariable [_x,sideUnknown] isEqualTo teamPlayer} count airportsX > 0}}],
+    ["UK3CB_ADA_I_L39_AA", 40000, "PLANE", {tierWar > 7 && {{sidesX getVariable [_x,sideUnknown] isEqualTo teamPlayer} count airportsX > 0}}],
+
+    ["LOP_TKA_Mi24V_AT", 25000, "HELI", {tierWar > 5 &&{ {sidesX getVariable [_x,sideUnknown] isEqualTo teamPlayer} count airportsX > 0}}],
+    ["LOP_IRAN_Mi8MTV3_UPK23", 15000, "HELI", {tierWar > 5 &&{ {sidesX getVariable [_x,sideUnknown] isEqualTo teamPlayer} count airportsX > 0}}]
+]] call _fnc_saveToTemplate;
+
+///////////////////////////
+//  Rebel Starting Gear  //
+///////////////////////////
+
+private _initialRebelEquipment = [
+    "rhs_weap_m38", "uk3cb_sks_01",
+    "uk3cb_10rnd_magazine_sks", "uk3cb_10rnd_magazine_sks_GT", "rhsgref_5Rnd_762x54_m38",
+    "rhsusf_weap_glock17g4", "rhsusf_mag_17Rnd_9x19_FMJ",
+    ["rhs_weap_rpg18", 50],
+    ["IEDUrbanSmall_Remote_Mag", 10], ["IEDLandSmall_Remote_Mag", 10], ["IEDUrbanBig_Remote_Mag", 3], ["IEDLandBig_Remote_Mag", 3],
+    "rhs_mag_rgd5", "rhs_mag_rdg2_black",
+    "SP_OpforRig1_Tan", "V_Chestrig_khk", "V_BandollierB_cbr", "UK3CB_V_Chicom_Desert_m88",
+    "V_TacVest_khk", "V_TacChestrig_cbr_F", "SP_OpforRig1_Black", "SP_OpforRig1_Green", "SP_OpforRig1_Grey",
+    "UK3CB_ANA_B_B_ASS", "UK3CB_TKA_B_B_ASS", "UK3CB_CSAT_O_B_TACPACK_KHK","O_HMG_01_weapon_F","B_FieldPack_cbr","B_FieldPack_khk",
+    "Binocular"
+];
+
+if (A3A_hasTFAR) then {_initialRebelEquipment append ["tf_microdagr", "tf_anprc154"]};
+if (A3A_hasTFAR && startWithLongRangeRadio) then {
+    _initialRebelEquipment pushBack "tf_anprc155";
+    _initialRebelEquipment pushBack "tf_anprc155_coyote";
+};
+if (A3A_hasTFARBeta) then {_initialRebelEquipment append ["TFAR_microdagr", "TFAR_anprc154"]};
+if (A3A_hasTFARBeta && startWithLongRangeRadio) then {
+    _initialRebelEquipment pushBack "TFAR_anprc155";
+    _initialRebelEquipment pushBack "TFAR_anprc155_coyote";
+};
+
+_initialRebelEquipment append ["Chemlight_blue","Chemlight_green","Chemlight_red","Chemlight_yellow"];
+
+["initialRebelEquipment", _initialRebelEquipment] call _fnc_saveToTemplate;
+
+private _rebUniforms = [
+    "UK3CB_ADE_O_U_02_K",
+    "UK3CB_ADM_B_U_Tshirt_01_DPM",
+    "UK3CB_ADE_O_U_03_C",
+    "UK3CB_ADE_O_U_03_D",
+    "UK3CB_ADE_O_U_02_J",
+    "UK3CB_TKM_O_U_01_B",
+    "UK3CB_TKM_O_U_05",
+    "UK3CB_TKM_O_U_05_B",
+    "UK3CB_MEE_O_U_01",
+    "UK3CB_MEE_O_U_01_D",
+    "UK3CB_MEE_O_U_02_B",
+    "UK3CB_TKM_B_U_04",
+    "UK3CB_TKM_B_U_05",
+    "UK3CB_TKM_I_U_05_B",
+    "IS_uniform_i",
+    "IS_uniform_o",
+    "alNusra_uniform",
+    "LOP_U_ISTS_Fatigue_19",
+    "LOP_U_AM_Fatigue_02_3",
+    "LOP_U_ISTS_Fatigue_01",
+    "LOP_U_ISTS_Fatigue_02",
+    "LOP_U_ISTS_Fatigue_03",
+    "LOP_U_ISTS_Fatigue_04",
+    "LOP_U_AM_Fatigue_01_6",
+    "LOP_U_AM_Fatigue_02_2",
+    "LOP_U_AM_Fatigue_02",
+    "LOP_U_AM_Fatigue_03",
+    "LOP_U_AM_Fatigue_04_2",
+    "LOP_U_AM_Fatigue_04_3",
+    "LOP_U_AM_Fatigue_04",
+    "LOP_U_AM_Fatigue_03_4",
+    "LOP_U_AM_Fatigue_03_2"
+];          //Uniforms given to Normal Rebels
+
+private _rebUniformsAI = [
+    "IS_uniform_i",
+    "IS_uniform_o",
+    "LOP_U_ISTS_Fatigue_01",
+    "LOP_U_ISTS_Fatigue_02",
+    "LOP_U_ISTS_Fatigue_03",
+    "LOP_U_ISTS_Fatigue_04",
+    "LOP_U_AM_Fatigue_01_4",
+    "LOP_U_AM_Fatigue_01_6",
+    "LOP_U_AM_Fatigue_01",
+    "LOP_U_AM_Fatigue_01_5",
+    "LOP_U_AM_Fatigue_01_2",
+    "LOP_U_AM_Fatigue_02"
+];
+
+["uniforms", _rebUniforms + _rebUniformsAI] call _fnc_saveToTemplate;         //These Items get added to the Arsenal
+
+["headgear", [
+    "UK3CB_H_Shemag_blk",
+    "UK3CB_H_Shemag_tan",
+    "UK3CB_H_Mil_Turban_Wrap",
+    "UK3CB_TKM_I_H_Turban_01_1",
+    "UK3CB_TKM_I_H_Turban_03_1",
+    "UK3CB_TKM_I_H_Turban_04_1",
+    "IS_shemag_black",
+    "IS_bandanna_black_logo2",
+    "IS_bandanna_black_logo1",
+    "UK3CB_H_Woolhat_CBR"
+]] call _fnc_saveToTemplate;          //Headgear used by Rebell Ai until you have Armored Headgear.
+
+/////////////////////
+///  Identities   ///
+/////////////////////
+
+["faces", ["PersianHead_A3_01","PersianHead_A3_02","PersianHead_A3_03"]] call _fnc_saveToTemplate;
+["voices", ["Male01_ackbar"]] call _fnc_saveToTemplate;
+
+//////////////////////////
+//       Loadouts       //
+//////////////////////////
+private _loadoutData = call _fnc_createLoadoutData;
+_loadoutData set ["maps", ["ItemMap"]];
+_loadoutData set ["watches", ["ItemWatch"]];
+_loadoutData set ["compasses", ["ItemCompass"]];
+_loadoutData set ["binoculars", ["Binocular"]];
+
+_loadoutData set ["uniforms", _rebUniformsAI];
+_loadoutData set ["facewear", ["CUP_Beard_Black", "None", "CUP_Beard_Brown", "CUP_TK_NeckScarf"]];
+
+_loadoutData set ["items_medical_basic", ["BASIC"] call A3A_fnc_itemset_medicalSupplies];
+_loadoutData set ["items_medical_standard", ["STANDARD"] call A3A_fnc_itemset_medicalSupplies];
+_loadoutData set ["items_medical_medic", ["MEDIC"] call A3A_fnc_itemset_medicalSupplies];
+_loadoutData set ["items_miscEssentials", [] call A3A_fnc_itemset_miscEssentials];
+
+////////////////////////
+//  Rebel Unit Types  //
+///////////////////////.
+
+private _squadLeaderTemplate = {
+    ["uniforms"] call _fnc_setUniform;
+    ["facewear"] call _fnc_setFacewear;
+
+    ["maps"] call _fnc_addMap;
+    ["watches"] call _fnc_addWatch;
+    ["compasses"] call _fnc_addCompass;
+    ["binoculars"] call _fnc_addBinoculars;
+};
+
+private _riflemanTemplate = {
+    ["uniforms"] call _fnc_setUniform;
+    ["facewear"] call _fnc_setFacewear;
+
+    ["maps"] call _fnc_addMap;
+    ["watches"] call _fnc_addWatch;
+    ["compasses"] call _fnc_addCompass;
+};
+
+private _prefix = "militia";
+private _unitTypes = [
+    ["Petros", _squadLeaderTemplate],
+    ["SquadLeader", _squadLeaderTemplate],
+    ["Rifleman", _riflemanTemplate],
+    ["staticCrew", _riflemanTemplate],
+    ["Medic", _riflemanTemplate, [["medic", true]]],
+    ["Engineer", _riflemanTemplate, [["engineer", true]]],
+    ["ExplosivesExpert", _riflemanTemplate, [["explosiveSpecialist", true]]],
+    ["Grenadier", _riflemanTemplate],
+    ["LAT", _riflemanTemplate],
+    ["AT", _riflemanTemplate],
+    ["AA", _riflemanTemplate],
+    ["MachineGunner", _riflemanTemplate],
+    ["Marksman", _riflemanTemplate],
+    ["Sniper", _riflemanTemplate],
+    ["Unarmed", _riflemanTemplate]
+];
+
+[_prefix, _unitTypes, _loadoutData] call _fnc_generateAndSaveUnitsToTemplate;
