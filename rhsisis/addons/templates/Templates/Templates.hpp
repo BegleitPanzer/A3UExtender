@@ -6,6 +6,7 @@ class Templates
 
     class ISIS : Syrian_Base
     {
+        basepath = QPATHTOFOLDER(Templates\ISIS);
         side = "Occ"; // Inv, Occ, Reb, Riv, Civ
         priority = 100;
         // flagTexture = QPATHTOFOLDER(Templates\Mod\islamic_state_flag.paa); // Path to an icon to be displayed in the select menu.
