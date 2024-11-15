@@ -7,7 +7,9 @@ class Templates
     class ISIS : Syrian_Base
     {
         side = "Occ"; // Inv, Occ, Reb, Riv, Civ
-        flagTexture = QPATHTOFOLDER(Templates\Mod\islamic_state_flag.paa); // Path to an icon to be displayed in the select menu.
+        priority = 100;
+        // flagTexture = QPATHTOFOLDER(Templates\Mod\islamic_state_flag.paa); // Path to an icon to be displayed in the select menu.
+        flagTexture = "\A3\Data_F\Flags\flag_CSAT_CO.paa"; // Path to an icon to be displayed in the select menu.
         name = "Islamic State"; // Name shown in the select menu.
         file = "RHS_Occ_ISIS"; // The template file name - .sqf, that gets appended automatically.
         climate[] = {"arid", "arctic", "temperate", "tropical"}; // climate that the template can be selected on.

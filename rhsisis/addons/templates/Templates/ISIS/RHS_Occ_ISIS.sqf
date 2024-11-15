@@ -6,8 +6,8 @@
 ["spawnMarkerName", "ISIS/Russian Reinforcements"] call _fnc_saveToTemplate;
 
 ["flag", "Flag_NATO_F"] call _fnc_saveToTemplate;
-["flagTexture", "\po_main\data\ui\markers\Flag_isis_CO.paa"] call _fnc_saveToTemplate;
-["flagMarkerType", "lop_flag_syr"] call _fnc_saveToTemplate;
+["flagTexture", "\A3\Data_F\Flags\flag_CSAT_CO.paa"] call _fnc_saveToTemplate;
+["flagMarkerType", "lop_Flag_isis_F"] call _fnc_saveToTemplate;
 
 //////////////////////////
 //       Vehicles       //
@@ -273,13 +273,13 @@ _sfLoadoutData set ["marksmanRifles", [
     ["UK3CB_SVD_OLD", "rhs_acc_tgpv2", "", "rhs_acc_pso1m21", ["rhs_10Rnd_76x54mmR_7N14"], [], ""]
 ]];
 _sfLoadoutData set ["sniperRifles", [   
-    ["UK3CB_SVD_OLD", "rhs_acc_tgpv2", "", "rhs_acc_pso1m21", ["rhs_10Rnd_76x54mmR_7N14"], [], ""]
+    ["UK3CB_SVD_OLD", "rhs_acc_tgpv2", "", "rhs_acc_pso1m21", ["rhs_10Rnd_76x54mmR_7N14"], [], ""],
     ["rhs_weap_t50000", "", "", "", ["rhs_5Rnd_338lapua_t5000"], [], ""]
 ]];
 _sfLoadoutData set ["sidearms", [
-    ["rhsusf_weap_m1911a1", "", "", "", ["rhsusf_mag_7x45_acp_MHP"], [], ""]
-    ["rhs_weap_tt33", "", "", "", ["rhs_mag_762x25_8"], [], ""]
-    ["rhs_weap_6p53", "", "", "", ["rhs_18rnd_9x221mm_7BT3"], [], ""]
+    ["rhsusf_weap_m1911a1", "", "", "", ["rhsusf_mag_7x45_acp_MHP"], [], ""],
+    ["rhs_weap_tt33", "", "", "", ["rhs_mag_762x25_8"], [], ""],
+    ["rhs_weap_6p53", "", "", "", ["rhs_18rnd_9x221mm_7BT3"], [], ""],
     ["rhs_weap_pb_6p9", "", "", "", ["rhs_mag_9x18_8_7N181S"], [], ""]
     
 
@@ -343,7 +343,7 @@ _eliteLoadoutData set ["marksmanRifles", [
     ["UK3CB_SVD_OLD", "rhs_acc_tgpv2", "", "rhs_acc_pso1m21", ["rhs_10Rnd_76x54mmR_7N14"], [], ""]
 ]];
 _eliteLoadoutData set ["sniperRifles", [
-    ["UK3CB_SVD_OLD", "rhs_acc_tgpv2", "", "rhs_acc_pso1m21", ["rhs_10Rnd_76x54mmR_7N14"], [], ""]
+    ["UK3CB_SVD_OLD", "rhs_acc_tgpv2", "", "rhs_acc_pso1m21", ["rhs_10Rnd_76x54mmR_7N14"], [], ""],
     ["rhs_weap_t50000", "", "", "", ["rhs_5Rnd_338lapua_t5000"], [], ""]
 ]];
 _eliteLoadoutData set ["sidearms", [
